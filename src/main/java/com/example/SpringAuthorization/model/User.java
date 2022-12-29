@@ -8,18 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Entity
 public class User {
-    @Id // primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String username;
     private String password;
     private String email;
-    private String role; //ROLE_USER
-    @CreationTimestamp
-    private Timestamp createDate;
+    private String roles;
+
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 }
