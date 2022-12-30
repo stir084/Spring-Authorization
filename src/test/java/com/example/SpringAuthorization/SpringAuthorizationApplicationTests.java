@@ -9,5 +9,4 @@ class SpringAuthorizationApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

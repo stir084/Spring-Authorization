@@ -1,12 +1,18 @@
 package com.example.SpringAuthorization.controller;
 
 
+import com.example.SpringAuthorization.config.MyAuthority;
+import com.example.SpringAuthorization.config.SecurityConfig;
+import com.example.SpringAuthorization.config.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -62,10 +68,54 @@ public class IndexController {
         "username" : "loose",
             "password" : "1234"
     }*/
+    //그럼 reponse Header에 JWT 나옴
+    //해당 JWT로 진입
+    //성공했습니다.
+
+
+    //3단계 Secured 구현
+    @PreAuthorize("hasRole('ROLE_ADMINdf')")
+    @GetMapping("/tete")
+    public ResponseEntity user2() {
+        System.out.println("user");
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/tete2")
+    public ResponseEntity user3() {
+        System.out.println("user");
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @Secured("ROLE_ADMINdf")
+    @GetMapping("/tete3")
+    public ResponseEntity user4() {
+        System.out.println("user");
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @Secured(MyAuthority.USER.getAuthority())
+    @GetMapping("/tete4")
+    public ResponseEntity user5() {
+
+        System.out.println("user");
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+    @RequestMapping(value = MyAuthority.USER.getAuthority(), method = RequestMethod.GET)
+    public String home() {
+        System.out.println(Test.test);
+        System.out.println("home()");
+        return "index";
+    }
     //바로 /user 진입하기
     //junit 구현하기
 
     //3단계
     //GetMapping위에 Method Security로 검사하기
+
+
+    //https://www.baeldung.com/java-annotation-attribute-value-restrictions
+    //is annotation Attribute value must be constant in java? 로 검색한거임
 
 }

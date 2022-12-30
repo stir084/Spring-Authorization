@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-
 	private final AuthenticationConfiguration authenticationConfiguration;
 
 	@Autowired
@@ -56,8 +55,8 @@ public class SecurityConfig {
 				.antMatchers("/api/v1/manager/**")
 				.access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
 				.antMatchers("/api/v1/admin/**")
-				.access("hasRole('ROLE_ADMIN')")
-				.anyRequest().permitAll()
+				.access("hasRole('ROLE_USER')")
+				.anyRequest().authenticated()//.permitAll()
 				.and().build();
 	}
 }
