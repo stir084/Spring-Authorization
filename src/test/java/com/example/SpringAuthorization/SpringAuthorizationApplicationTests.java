@@ -1,12 +1,25 @@
 package com.example.SpringAuthorization;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+
 class SpringAuthorizationApplicationTests {
 
+	@Autowired
+	private MockMvc mvc;
+
 	@Test
-	void contextLoads() {
+	void test() throws Exception {
+		String hello = "hello";
+
+		mvc.perform(post("/login"))
+				.andExpect(status().isOk());
+				//.andExpect(content().string(hello));
 	}
 }

@@ -1,8 +1,6 @@
 package com.example.SpringAuthorization;
 
-
 import com.example.SpringAuthorization.model.User;
-import com.example.SpringAuthorization.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,9 +13,7 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 public class InitDB {
 
-
     private final InitService initService;
-
 
     @PostConstruct
     public void init() {
